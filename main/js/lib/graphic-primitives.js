@@ -107,3 +107,42 @@ export function drawStraightLink(ctx, link) {
   ctx.stroke();
   ctx.restore();
 }
+
+export function drawObjectHeader(ctx, object) {
+  ctx.save();
+  ctx.font = "bold 16px sans-serif";
+  const text = object.constructor.name;
+  const boxCenterX = object.x + object.width / 2;
+  const textWidth = ctx.measureText(text).width;
+  const x = boxCenterX - ctx.measureText(text).width / 2;
+  const topY = object.y + 20;
+
+  if (textWidth > object.width) {
+    const lines = text.split(/(?=[A-Z])/);
+    for (const [i, lineText] of lines.entries()) {
+      ctx.fillText(
+        lineText,
+        boxCenterX - ctx.measureText(lineText).width / 2,
+        topY + i * 20
+      );
+    }
+  } else {
+    ctx.fillText(text, x, topY);
+  }
+  ctx.restore();
+}
+
+export function drawObjectInfoTip(ctx, x, y, ...args) {
+  ctx.save();
+  ctx.font = "bold 12px sans-serif";
+  const lines = args.length;
+  const height = 20 * lines;
+  const maxWidth = Math.max(...args.map((arg) => ctx.measureText(arg).width));
+  ctx.fillStyle = "rgba(225, 225, 225, 1)";
+  ctx.fillRect(x, y, maxWidth + 10, height + 10);
+  ctx.fillStyle = "black";
+  for (const [i, arg] of args.entries()) {
+    ctx.fillText(arg, x + 5, y + 20 + i * 20);
+  }
+  ctx.restore();
+}
