@@ -22,20 +22,20 @@ import { reconnectAssociation } from "../filters/reconnect/association.js";
 import { reconnectTree } from "../filters/reconnect/tree.js";
 import { reconnectMixedViews } from "../filters/reconnect/mixed.js";
 
-export const views = {
+export const possibleViews = {
   "Monte Carlo Particle Tree": {
     viewFunction: mcParticleTree,
     scrollFunction: scrollTopCenter,
     preFilterFunction: preFilterMCTree,
     reconnectFunction: reconnectMCParticleTree,
     collections: ["edm4hep::MCParticle"],
-    description: `<p>${spanWithColor(
+    description: `<p>A tree of Monte Carlo particles with their relationships:<ul><li>${spanWithColor(
       "Red",
       "#AA0000"
-    )} relations mean parent relation (from bottom to top), ${spanWithColor(
-      "green",
+    )} relations mean parent relation (from bottom to top)</li><li>${spanWithColor(
+      "Green",
       "#00AA00"
-    )} relations mean daughter relation (from top to bottom).</p>`,
+    )} relations mean daughter relation (from top to bottom).</li></ul></p>`,
   },
   "Reconstructed Particle Tree": {
     viewFunction: recoParticleTree,
@@ -43,10 +43,10 @@ export const views = {
     preFilterFunction: preFilterRecoTree,
     reconnectFunction: reconnectTree,
     collections: ["edm4hep::ReconstructedParticle"],
-    description: `<p>A tree of the Reconstructed Particles. ${spanWithColor(
+    description: `<p>A tree of Reconstructed Particles with possible relationships:<ul><li>${spanWithColor(
       "Purple",
       "#AA00AA"
-    )} relations mean relation between particles.</p>`,
+    )} relations mean relation between particles</li></ul></p>`,
   },
   "Track Tree": {
     viewFunction: trackTree,
@@ -83,35 +83,35 @@ export const views = {
       "#00AAAA"
     )} connections are towards Clusters.</p>`,
   },
-  "Monte Carlo-Reconstructed Particle": {
+  "Reconstructed Particle - MC Particle": {
     viewFunction: mcRecoAssociation,
     scrollFunction: scrollTopCenter,
     preFilterFunction: preFilterMCReco,
     reconnectFunction: reconnectAssociation,
     collections: ["edm4hep::MCParticle", "edm4hep::ReconstructedParticle"],
-    description: `<p>Association between Monte Carlo Particles and Reconstructed Particles. 1:1 relation.</p>`,
+    description: `<p>Links between Reconstructed Particles and Monte Carlo Particles, 1:1 relation.</p>`,
   },
-  "Monte Carlo Particle-Track": {
+  "Track - MC Particle": {
     viewFunction: mcTrackAssociation,
     scrollFunction: scrollTopCenter,
     preFilterFunction: preFilterMCTrack,
     reconnectFunction: reconnectAssociation,
     collections: ["edm4hep::MCParticle", "edm4hep::Track"],
-    description: `<p>Association between Monte Carlo Particles and Tracks. 1:1 relation.</p>`,
+    description: `<p>Link between Tracks and Monte Carlo Particles, 1:1 relation.</p>`,
   },
-  "Monte Carlo Particle-Cluster": {
+  "Cluster - MC Particle": {
     viewFunction: mcClusterAssociation,
     scrollFunction: scrollTopCenter,
     preFilterFunction: preFilterMCCluster,
     reconnectFunction: reconnectAssociation,
     collections: ["edm4hep::MCParticle", "edm4hep::Cluster"],
-    description: `<p>Association between Monte Carlo Particles and Clusters. 1:1 relation.</p>`,
+    description: `<p>Link between Clusters and Monte Carlo Particles, 1:1 relation.</p>`,
   },
   "ParticleID List": {
     viewFunction: particleIDList,
     scrollFunction: scrollTopLeft,
     preFilterFunction: preFilterParticleIDList,
-    reconnectFunction: () => {},
+    reconnectFunction: () => { },
     collections: ["edm4hep::ParticleID"],
     description: `<p>A list of ParticleIDs found in the event.</p>`,
   },
@@ -119,7 +119,7 @@ export const views = {
     viewFunction: vertexList,
     scrollFunction: scrollTopLeft,
     preFilterFunction: preFilterVertexList,
-    reconnectFunction: () => {},
+    reconnectFunction: () => { },
     collections: ["edm4hep::Vertex"],
     description: `<p>A list of Vertices found in the event.</p>`,
   },

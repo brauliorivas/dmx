@@ -1,2 +1,4 @@
+*.js
+!datatypes.js
 *.yaml
 *.yml
