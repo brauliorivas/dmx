@@ -33,7 +33,7 @@ class Vertex extends EDMObject {
     addLinesToBox(lines, box, nextY);
   }
 
-  static setup(vertexCollection) {}
+  static setup() {}
 }
 
 export { Vertex };
