@@ -69,10 +69,10 @@ MIT License
   background-color: #3f51b5;
 }
 .cl-switch [disabled]:not([disabled="false"]) + .switcher {
-  background: #ccc !important;
+  background: #ccc;
 }
 .cl-switch [disabled]:not([disabled="false"]) + .switcher:before {
-  background-color: #e2e2e2 !important;
+  background-color: #e2e2e2;
 }
 .cl-switch.cl-switch-black input[type="checkbox"]:checked + .switcher {
   background-color: #676767;
