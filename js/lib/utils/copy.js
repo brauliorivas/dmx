@@ -8,7 +8,7 @@ export function emptyCopyObject(source, destiny) {
   destiny.datatypes = {};
 
   for (const [objectType, elements] of Object.entries(source.datatypes)) {
-    const { _, oneToMany, oneToOne } = elements;
+    const { oneToMany, oneToOne } = elements;
 
     destiny.datatypes[objectType] = {
       collection: [],
