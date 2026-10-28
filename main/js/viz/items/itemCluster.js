@@ -32,7 +32,7 @@ class Cluster extends EDMObject {
     addLinesToBox(lines, box, nextY);
   }
 
-  static setup() {}
+  static setup(clusterCollection) {}
 }
 
 export { Cluster };
