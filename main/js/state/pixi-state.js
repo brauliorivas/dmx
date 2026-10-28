@@ -43,7 +43,7 @@ export const createContainer = (app, objects) => {
   app.stage.addChild(viewport);
   viewport
     .drag({
-      pressDrag: false, // disables click to drag
+      pressDrag: true, // allow moving around the viewport when clicking on the background
       wheel: false, // prevents the drag method from handling wheel events
     })
     .pinch()
@@ -122,4 +122,10 @@ export const startPixi = async () => {
 
   pixi.app = app;
   pixi.textureCache = {};
+
+  window.addEventListener("resize", () => {
+    if (pixi.container) {
+      pixi.container.resize(window.innerWidth, window.innerHeight);
+    }
+  });
 };

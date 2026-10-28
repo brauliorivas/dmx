@@ -10,8 +10,8 @@ import { objectColor } from "../../lib/constants/vizStyles.js";
 export class MCParticle extends EDMObject {
   constructor() {
     super();
-    this.width = 174; // 2:3 format
-    this.height = 261;
+    this.width = 195; // 3:4 format
+    this.height = 260;
     this.titleName = "MCParticle";
     this.color = objectColor.sky100;
     this.colorOnHover = objectColor.sky200;
@@ -47,7 +47,7 @@ export class MCParticle extends EDMObject {
 
     nextY = addLinesToBox([topLine], box, nextY);
 
-    const imageY = nextY + this.imageMargin;
+    this.imageY = nextY + this.imageMargin;
 
     nextY += this.imageSize + this.imageMargin;
 
@@ -73,11 +73,19 @@ export class MCParticle extends EDMObject {
     </div>`.replace(/\n\s+/g, "");
 
     addLinesToBox([bottomLine], box, nextY);
-    this.drawImage(this.textToRender, imageY);
+    this.drawImage(this.textToRender, this.imageY);
   }
 
   objectModalLines() {
     const modalLines = [];
+
+    const simulatorStatus = getSimStatusDisplayValuesFromBit(
+      this.simulatorStatus,
+    );
+
+    const parsedStatus = simulatorStatus.map((status) =>
+      status.split(/(?=[A-Z])/).join(" "),
+    );
 
     modalLines.push(
       `
@@ -97,14 +105,15 @@ export class MCParticle extends EDMObject {
           <div>= ${parseCharge(this.charge)}</div>
         </div>
       </div>
+      ${
+        parsedStatus.length !== 0
+          ? `<div style="margin-top: 8px">Status: ${parsedStatus.join(", ")}</div>`
+          : ""
+      }
       `.replace(/\n\s+/g, ""),
     );
 
-    const simulatorStatus = getSimStatusDisplayValuesFromBit(
-      this.simulatorStatus,
-    );
-
-    return [...modalLines, ...simulatorStatus];
+    return [...modalLines];
   }
 
   async drawImage(text, imageY) {
